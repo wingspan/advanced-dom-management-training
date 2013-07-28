@@ -13,7 +13,7 @@ define([
     function install() {
 
         _.extend($.mockjaxSettings, {
-            responseTime: 200,
+            responseTime: 500,
             contentType: 'text/json',
             logging: false
         });
