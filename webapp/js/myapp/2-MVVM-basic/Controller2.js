@@ -1,13 +1,12 @@
 define([
-    'underscore', 'jquery', 'backbone',
+    'underscore', 'jquery', 'backbone', 'uuid',
     'myapp/2-MVVM-basic/TodosView2'
-], function (_, $, Backbone, TodosView) {
+], function (_, $, Backbone, uuid, TodosView) {
     'use strict';
 
     var TodoItemModel = Backbone.Model.extend({
-        defaults: {
-            title: '',
-            completed: false
+        defaults: function () {
+            return { title: '', completed: false, id: uuid() };
         },
         sync: _.identity
     });
@@ -32,7 +31,7 @@ define([
             model.reset(response);
         });
 
-        model.on('reset', _.bind(view.update, view, model));
+        model.on('add remove reset', _.bind(view.updateView, view));
     }
 
     return { entryPoint: entryPoint };

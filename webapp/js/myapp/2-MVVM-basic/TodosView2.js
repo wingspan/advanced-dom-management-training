@@ -5,13 +5,14 @@ define([
     'use strict';
 
 
-    function TodoItemVM(item) {
-        return {
-            id: item.id,
-            title: item.title,
-            completed: item.completed,
-            onRemoveItem: _.bind(alert, undefined, _.str.sprintf('remove item %s', item.id))
+    function TodoItemVM(todoItemModel) {
+        var vm = {
+            id: todoItemModel.id,
+            title: todoItemModel.get('title'),
+            completed: ko.observable(todoItemModel.get('completed')),
+            onRemoveItem: _.bind(todoItemModel.destroy, todoItemModel)
         };
+        return vm;
     }
 
     return Backbone.View.extend({
@@ -27,7 +28,7 @@ define([
             //  {"id": "todo1", "title": "foobar", "completed": true}]
 
             self.viewModel = {
-                todoItems: ko.observableArray(_.map(todoItems, TodoItemVM)),
+                todoItems: ko.observableArray(self.options.model.map(TodoItemVM)),
                 newTodoTitle: ko.observable(''),
                 onSubmit: function () {
                     self.options.model.add({ title: this.newTodoTitle(), completed: false });
@@ -41,10 +42,17 @@ define([
             return self;
         },
 
-        update: function (model) {
-            var todoItems = model.toJSON();
-            this.viewModel.todoItems(_.map(todoItems, TodoItemVM));
+        updateView: function () {
+            this.viewModel.todoItems(this.options.model.map(TodoItemVM));
         }
+
+//        ,updateModel: function () {
+//            var model = this.options.model;
+//            var todoItemsVM = this.viewModel.todoItems();
+//            _.each(todoItemsVM, function (itemVM) {
+//                model.set('completed', itemVM.completed());
+//            });
+//        }
 
     });
 });
