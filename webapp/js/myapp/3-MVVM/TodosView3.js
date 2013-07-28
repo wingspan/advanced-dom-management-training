@@ -1,6 +1,6 @@
 define([
     'backbone', 'knockout', 'knockback',
-    'text!textassets/myapp/4-MVVM/todos.html'
+    'text!textassets/myapp/3-MVVM/todos3.html'
 ], function (Backbone, ko, kb, todosHtml) {
     'use strict';
 
@@ -8,15 +8,14 @@ define([
         constructor: function (bbModel, options) {
             kb.ViewModel.prototype.constructor.apply(this, arguments);
             void options;
-            this.onRemoveItem = function () {
-                bbModel.destroy();
-            };
+            this.onRemoveItem = _.bind(bbModel.destroy, bbModel);
+            this.id = bbModel.id;
         }
     });
 
     var TodosView = Backbone.View.extend({
-        initialize: function (options) {
-            void options;
+        initialize: function () {
+            console.assert(!!this.options.model);
         },
 
         render: function () {
@@ -30,8 +29,7 @@ define([
                 }),
                 newTodoTitle: ko.observable(''),
                 onSubmit: function () {
-                    console.log(self.model);
-                    self.model.add({ id: "tutorail" + Math.random(), title: this.newTodoTitle(), completed: false });
+                    self.model.add({ title: this.newTodoTitle(), completed: false });
                     this.newTodoTitle('');
                 }
             };

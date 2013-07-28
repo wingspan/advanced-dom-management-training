@@ -1,13 +1,12 @@
 define([
-    'underscore', 'jquery', 'backbone',
-    'myapp/4-MVVM/TodosView'
-], function (_, $, Backbone, TodosView) {
+    'underscore', 'jquery', 'backbone', 'uuid',
+    'myapp/3-MVVM/TodosView3'
+], function (_, $, Backbone, uuid, TodosView) {
     'use strict';
 
     var TodoItemModel = Backbone.Model.extend({
-        defaults: {
-            title: '',
-            completed: false
+        defaults: function () {
+            return { title: '', completed: false, id: uuid() };
         },
         sync: _.identity
     });
