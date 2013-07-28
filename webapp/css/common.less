@@ -1,0 +1,30 @@
+div[data-wspt="root"] > div > .content {
+  position: absolute;
+  top: @headerHeight;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #5E605F;
+  box-shadow: inset 0 0 5px 5px #444;
+  border-bottom: @footerMargin solid @pageBorderColor;
+  .pie;
+
+  .views {
+    position: absolute;
+    top: 55px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .view {
+      position: absolute;
+      top: 5px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      background: url("common/assets/content-box-bg.png");
+      .rounded(10px);
+      overflow: hidden;
+    }
+  }
+}

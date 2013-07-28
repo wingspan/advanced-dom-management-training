@@ -1,0 +1,2 @@
+[ { "id": "todo0", "title": "hello", "completed": false },
+  { "id": "todo1", "title": "foobar", "completed": true }]

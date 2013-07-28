@@ -1,0 +1,92 @@
+/*
+	global checkbox styling.
+	1) hide original checkboxes (but still accessible).
+	2) use not filter, older browser will ignore this and just show normal checkboxes.
+*/
+ul.checkList:not(#supported)
+{
+    margin-top: 0;
+    margin-left: 0;
+}
+
+ul.checkList:not(#supported) li
+{
+    clear: both;
+    margin-bottom: 12px;
+}
+
+input[type='checkbox'], input[type='radio']
+{
+    opacity: 0;
+    width: 0;
+    margin: 0;
+}
+
+input[type='checkbox'] + label
+{
+    clear: none;
+    
+    padding: 5px 0 4px 26px; /* make rook for image. */
+    
+    background: url(assets/check_off.png) left center no-repeat;
+}
+
+input[type='checkbox']:checked + label
+{
+    background-image: url(assets/check_on.png);
+
+    /*input[checked="checked"]*/
+}
+
+input[type='checkbox'].switchBox + label
+{
+    clear: none;
+    height: 40px;
+    padding-left: 90px;
+    background: url(assets/switch_off.png) left center no-repeat;
+    float: left;
+}
+
+input[type=checkbox].switchBox {
+    display: none;
+}
+
+input[type='checkbox'].switchBox:checked + label
+{
+    background-image: url(assets/switch_on.png);
+
+    /*input[checked="checked"]*/
+}
+
+input[type='radio'] + label
+{
+    clear: none;
+    
+    padding: 5px 0 4px 26px; /* make rook for image. */
+    
+    background: url(common/assets/radio_off.png) left center no-repeat; 
+}
+
+input[type='radio']:checked + label
+{
+    background-image: url(common/assets/radio_on.png);
+
+    /*input[checked="checked"]*/
+}
+
+.checkboxWrap {
+	float: left;
+	white-space: nowrap;
+}
+
+.checkboxWrap input {
+	display: none;
+}
+
+#dwuiDialog {
+    padding: 0;
+}
+
+.loadPie {
+	behavior: url(behaviors/PIE.htc);
+}
