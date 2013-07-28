@@ -1,7 +1,7 @@
 define([
     'backbone', 'knockout', 'knockback',
-    'text!textassets/myapp/4-MVVM/todo.html'
-], function (Backbone, ko, kb, tutorialHtml) {
+    'text!textassets/myapp/4-MVVM/todos.html'
+], function (Backbone, ko, kb, todosHtml) {
     'use strict';
 
     var TodoItemVM = kb.ViewModel.extend({
@@ -14,7 +14,7 @@ define([
         }
     });
 
-    var TutorialView = Backbone.View.extend({
+    var TodosView = Backbone.View.extend({
         initialize: function (options) {
             void options;
         },
@@ -36,7 +36,7 @@ define([
                 }
             };
 
-            self.$el.html(tutorialHtml);
+            self.$el.html(todosHtml);
             ko.applyBindings(self.viewModel, self.$el[0]);
 
             return self;
@@ -44,5 +44,5 @@ define([
 
     });
 
-    return TutorialView;
+    return TodosView;
 });

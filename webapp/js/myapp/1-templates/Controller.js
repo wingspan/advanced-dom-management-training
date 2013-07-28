@@ -1,6 +1,6 @@
 define([
     'underscore', 'jquery', 'backbone',
-    'myapp/4-MVVM/TodosView'
+    'myapp/1-templates/TodosView'
 ], function (_, $, Backbone, TodosView) {
     'use strict';
 
@@ -17,6 +17,8 @@ define([
         sync: _.identity
     });
 
+
+
     function entryPoint () {
 
         var model = new TodoListCollection();
@@ -29,6 +31,8 @@ define([
         promise.done(function (response) {
             model.reset(response);
         });
+
+        model.on('reset', _.bind(view.render, view));
     }
 
     return { entryPoint: entryPoint };

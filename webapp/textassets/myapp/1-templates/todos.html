@@ -1,0 +1,19 @@
+<div class="content">
+    <ul class="todoList">
+        {{#todoItems}}
+        <li>
+            <div class="checkboxWrap">
+                <input type="checkbox" checked={{completed}} id={{id}}>
+                <label for={{id}}>{{title}}</label>
+            </div>
+            <button onclick="{{{todoItemClick}}}">&times;</button>
+        </li>
+        {{/todoItems}}
+    </ul>
+    <form onsubmit="{{{todoSubmit}}}; return false;">
+        <input type="text" placeholder="buy milk" autofocus>
+    </form>
+</div>
+<div class="footer">
+
+</div>

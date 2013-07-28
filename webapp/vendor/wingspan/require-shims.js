@@ -31,7 +31,8 @@
             'es5-shim': '../vendor/es5-shim-c52c7eb',
             'es5-sham': '../vendor/es5-sham-c52c7eb',
             'es6-date-shim': '../vendor/date_iso8601_polyfill_es6',
-            'console-shim': '../vendor/console-shim'
+            'console-shim': '../vendor/console-shim',
+            'mustache': '../vendor/mustache-0.7.2'
         },
         shim: {
             'underscore': { deps: [], exports: '_' },
