@@ -1,0 +1,17 @@
+<div class="content">
+    <ul class="todoList" data-bind="foreach: todoItems">
+        <li>
+            <div class="checkboxWrap">
+                <input type="checkbox" data-bind="checked: completed, attr: { id: id }">
+                <label data-bind="text: title, attr: { for: id }"></label>
+            </div>
+            <button data-bind="click: onRemoveItem">&times;</button>
+        </li>
+    </ul>
+    <form data-bind="submit: onSubmit">
+        <input type="text" data-bind="value: newTodoTitle" placeholder="buy milk" autofocus>
+    </form>
+</div>
+<div class="footer">
+
+</div>
