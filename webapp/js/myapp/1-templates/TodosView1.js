@@ -1,6 +1,6 @@
 define([
     'underscore', 'backbone', 'mustache',
-    'text!textassets/myapp/1-templates/todos.html'
+    'text!textassets/myapp/1-templates/todos1.html'
 ], function (_, Backbone, Mustache, todosHtml) {
     'use strict';
 
@@ -18,7 +18,9 @@ define([
 
             var todoItems = this.options.model.toJSON();
             _.each(todoItems, function (record) {
-                record.todoItemClick = "_.bind(alert, undefined, 'todo item click')()";
+                // record.id
+                var msg = _.str.sprintf('remove %s', record.id);
+                record.todoItemClick = _.str.sprintf("_.bind(alert, undefined, '%s')()", msg);
             });
 
             var params = {

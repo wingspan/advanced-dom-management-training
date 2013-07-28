@@ -1,6 +1,6 @@
 define([
     'underscore', 'jquery', 'backbone',
-    'myapp/1-templates/TodosView'
+    'myapp/1-templates/TodosView1'
 ], function (_, $, Backbone, TodosView) {
     'use strict';
 
