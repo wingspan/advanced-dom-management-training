@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 define([
-    'underscore', 'react', 'react-backbone'
+    'underscore', 'react'
 ], function (_, React) {
     'use strict';
 
