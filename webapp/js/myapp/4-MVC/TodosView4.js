@@ -1,28 +1,39 @@
 /** @jsx React.DOM */
 define([
-    'underscore', 'react'
+    'underscore', 'react', 'react-backbone'
 ], function (_, React) {
     'use strict';
 
 
     var TodoItemView = React.createClass({
         render: function () {
-            console.assert(!!this.props.id);
-            console.assert(this.props.title !== undefined);
-            console.assert(this.props.completed !== undefined);
+            console.assert(!!this.props.model);
 
-            var onToggleComplete = _.bind(alert, undefined, 'toggle');
-            var onRemove = _.bind(alert, undefined, 'remove');
+            var id = this.props.model.id;
+            var completed = this.props.model.get('completed');
+            var title = this.props.model.get('title');
+
+            var input = (completed
+                ? <input type="checkbox" defaultChecked="yes" onClick={this.onToggleComplete} id={id} ref="checkbox"/>
+                : <input type="checkbox" onClick={this.onToggleComplete} id={id} ref="checkbox"/>);
 
             return (
-                <li>
+                <li key={id}>
                     <div className="checkboxWrap">
-                        <input type="checkbox" checked={this.props.completed} onClick={onToggleComplete} id={this.props.id} />
-                        <label htmlFor={this.props.id}>{this.props.title}</label>
+                        {input}
+                        <label htmlFor={id}>{title}</label>
                     </div>
-                    <button onClick={onRemove}>&times;</button>
+                    <button onClick={this.onRemove}>&times;</button>
                 </li>
             );
+        },
+        onToggleComplete: function () {
+            var completed = this.refs.checkbox.getDOMNode().checked;
+            this.props.model.set('completed', completed);
+            return false;
+        },
+        onRemove: function () {
+            this.props.model.destroy();
         }
     });
 
@@ -30,29 +41,26 @@ define([
 
     var TodoListView = React.createClass({
         render: function () {
-            console.assert(this.props.todoItems);
+            console.assert(this.props.model !== null);
 
-            var items = _.map(this.props.todoItems, function (record) {
+            var items = this.props.model.map(function (todoItemModel) {
                 void TodoItemView;
-                return (
-                    <TodoItemView id={record.id} title={record.title} completed={record.completed} />
-                );
+                return (<TodoItemView model={todoItemModel} />);
             });
-
-            var onSubmit = function () {
-                alert('submit form');
-                return false;
-            };
-
 
             return (
                 <div className="content">
                     <ul className="todoList">{items}</ul>
-                    <form onSubmit={onSubmit}>
+                    <form onSubmit={this.onNewTodo}>
                         <input type="text" ref="newTodoTitle" placeholder="buy milk" autofocus></input>
                     </form>
                 </div>
             );
+        },
+
+        onNewTodo: function () {
+            this.props.model.add({ title: this.refs.newTodoTitle, completed: false });
+            return false;
         }
     });
 

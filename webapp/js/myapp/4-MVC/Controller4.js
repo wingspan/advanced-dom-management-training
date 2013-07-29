@@ -23,20 +23,21 @@ define([
         var model = new TodoListCollection();
 
         var domEl = $('[data-wspt-id="root"]')[0];
-        function render(model) {
-            var todoItems = model.toJSON();
-            void TodosView;
-            React.renderComponent(<TodosView todoItems={todoItems}/>, domEl);
-        }
+        void TodosView;
+        var view = React.renderComponent(<TodosView model={model} />, domEl);
 
-        render(model);
-        model.on('add remove reset', _.bind(render, undefined, model));
+
+        model.on('add remove reset change', function () {
+            view.forceUpdate();
+        });
 
 
         var promise = $.getJSON('/api/todos');
         promise.done(function (response) {
             model.reset(response);
         });
+
+        window.model = model;
     }
 
     return { entryPoint: entryPoint };
