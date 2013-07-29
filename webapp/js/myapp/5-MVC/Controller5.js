@@ -36,7 +36,9 @@ define([
     _.extend(Controller.prototype, {
         render: function () {
             var todoItems = this.model.toJSON();
-            var jsx = <TodosView todoItems={todoItems} onNewTodo={this.onNewTodo} onRemoveTodo={this.onRemoveTodo} />
+            var jsx = (<TodosView todoItems={todoItems}
+                                  onNewTodo={_.bind(this.onNewTodo, this)}
+                                  onRemoveTodo={_.bind(this.onRemoveTodo, this)} />);
             this.cmp = React.renderComponent(jsx, this.domEl);
         },
         onNewTodo: function (title) {
