@@ -14,7 +14,7 @@ define([
             var title = this.props.model.get('title');
 
             var input = (completed
-                ? <input type="checkbox" defaultChecked="yes" onClick={this.onToggleComplete} id={id} ref="checkbox"/>
+                ? <input type="checkbox" checked="yes" onClick={this.onToggleComplete} id={id} ref="checkbox"/>
                 : <input type="checkbox" onClick={this.onToggleComplete} id={id} ref="checkbox"/>);
 
             return (
@@ -30,9 +30,8 @@ define([
         onToggleComplete: function () {
             var completed = this.refs.checkbox.getDOMNode().checked;
             this.props.model.set('completed', completed);
-            return false;
         },
-        onRemove: function () {
+        onRemove: function (e) {
             this.props.model.destroy();
         }
     });
@@ -52,15 +51,17 @@ define([
                 <div className="content">
                     <ul className="todoList">{items}</ul>
                     <form onSubmit={this.onNewTodo}>
-                        <input type="text" ref="newTodoTitle" placeholder="buy milk" autofocus></input>
+                        <input type="text" ref="newTodoTitle" />
                     </form>
                 </div>
             );
         },
 
-        onNewTodo: function () {
-            this.props.model.add({ title: this.refs.newTodoTitle, completed: false });
-            return false;
+        onNewTodo: function (e) {
+            e.nativeEvent.preventDefault();
+            var newTodoTitle = this.refs.newTodoTitle.getDOMNode().value.trim();
+            this.props.model.add({ title: newTodoTitle });
+            this.refs.newTodoTitle.getDOMNode().value = '';
         }
     });
 

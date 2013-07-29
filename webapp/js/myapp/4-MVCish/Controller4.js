@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 define([
     'underscore', 'jquery', 'backbone', 'react', 'uuid',
-    'myapp/4-MVC/TodosView4'
+    'myapp/4-MVCish/TodosView4'
 ], function (_, $, Backbone, React, uuid, TodosView) {
     'use strict';
 
