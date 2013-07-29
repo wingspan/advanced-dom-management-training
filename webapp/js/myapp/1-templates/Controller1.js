@@ -24,8 +24,8 @@ define([
         var model = new TodoListCollection();
 
         var view = new TodosView({ model: model });
+        view.setElement($('[data-wspt-id="root"]'));
         view.render();
-        $('[data-wspt-id="root"]').html(view.$el);
 
         var promise = $.getJSON('/api/todos');
         promise.done(function (response) {
